@@ -1,0 +1,21 @@
+logging:
+  level:
+    sql: debug
+
+server:
+  port: 2023
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: spring-graphql
+
+  graphql:
+    graphiql:
+      enabled: true
+
+  jpa:
+    hibernate:
+      ddl-auto: 'create-drop'
+    open-in-view: true

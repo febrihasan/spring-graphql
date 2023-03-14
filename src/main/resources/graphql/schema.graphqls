@@ -1,0 +1,60 @@
+type Query {
+    authors: [Author]
+    authorById(id: ID!): Author
+    books: [Book]
+    bookById(id: ID!): Book
+    employees: [Employee]
+    employeeByName(name: String!): Employee
+    departments: [Department]
+    departmentById(id: ID!): Department
+}
+
+type Mutation {
+    addBook(book: BookInput) : Book
+    addAuthor(author: AuthorInput) : Author
+    addEmployee(employee: EmployeeInput): Employee
+    addDepartment(department: DepartmentInput): Department
+}
+
+input BookInput {
+    title: String!
+    publisher: String
+    authorId: ID!
+}
+
+input AuthorInput {
+    name: String!
+}
+
+input EmployeeInput {
+    name: String!
+    departmentId: ID!
+}
+
+input DepartmentInput {
+    name: String!
+}
+
+type Author {
+    id: ID!
+    name: String!
+    books: [Book]
+}
+
+type Book {
+    id: ID!
+    title: String!
+    publisher: String
+}
+
+type Employee {
+    id: ID!
+    name: String
+    departmentId : ID!
+}
+
+type Department {
+    id: ID!
+    name: String
+    employees: [Employee]
+}
