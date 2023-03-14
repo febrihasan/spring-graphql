@@ -54,10 +54,32 @@ public class DepartmentController {
     }
 
     /**
+     * Mutation update data department to repository
+     *
+     * @param department update data
+     * @return data of department
+     */
+    @MutationMapping
+    public Department updateDepartment(@Argument DepartmentUpdate department) {
+        return service.update(new Department(department.id(), department.name(), new ArrayList<>()));
+    }
+
+    /**
+     * Mutation delete data department to repository
+     *
+     * @param id to delete data
+     */
+    @MutationMapping
+    public void deleteDepartment(Long id) {
+        service.delete(id);
+    }
+
+    /**
      * Constructor to departmentInput
      *
      * @param name
      */
     record DepartmentInput(String name) {}
+    record DepartmentUpdate(Long id, String name) {}
 
 }

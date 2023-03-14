@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EmployeeController {
 
-    private final EmployeeService employeeService;
+    private final EmployeeService service;
 
     /**
      * Query all data of employees
@@ -27,7 +27,7 @@ public class EmployeeController {
      */
     @QueryMapping
     public List<Employee> employees() {
-        return employeeService.getAll();
+        return service.getAll();
     }
 
     /**
@@ -38,7 +38,7 @@ public class EmployeeController {
      */
     @QueryMapping
     public Optional<Employee> employeeByName(@Argument String name) {
-        return employeeService.getByName(name);
+        return service.getByName(name);
     }
 
     /**
@@ -49,7 +49,30 @@ public class EmployeeController {
      */
     @MutationMapping
     public Employee addEmployee(@Argument EmployeeInput employee) {
-        return employeeService.save(new Employee(null, employee.name(), employee.departmentId()));
+        return service.save(new Employee(null, employee.name(),
+                employee.address(), employee.departmentId()));
+    }
+
+    /**
+     * Mutation update data employee to repository
+     *
+     * @param employee update data
+     * @return data of employee
+     */
+    @MutationMapping
+    public Employee updateEmployee(@Argument EmployeeUpdate employee) {
+        return service.update(new Employee(employee.id(), employee.name(),
+                employee.address(), employee.departmentId()));
+    }
+
+    /**
+     * Mutation delete data employee to repository
+     *
+     * @param id to delete data
+     */
+    @MutationMapping
+    public void deleteEmployee(Long id) {
+        service.delete(id);
     }
 
     /**
@@ -57,6 +80,7 @@ public class EmployeeController {
      *
      * @param name
      */
-    record EmployeeInput(String name, Long departmentId) {}
+    record EmployeeInput(String name, String address, Long departmentId) {}
+    record EmployeeUpdate(Long id, String name, String address, Long departmentId) {}
 
 }

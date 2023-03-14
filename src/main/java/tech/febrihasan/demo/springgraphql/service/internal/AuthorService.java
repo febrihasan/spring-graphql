@@ -2,8 +2,8 @@ package tech.febrihasan.demo.springgraphql.service.internal;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tech.febrihasan.demo.springgraphql.model.Author;
-import tech.febrihasan.demo.springgraphql.model.Book;
 import tech.febrihasan.demo.springgraphql.service.delegate.AuthorRepository;
 
 import java.util.List;
@@ -14,6 +14,7 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AuthorService {
 
     private final AuthorRepository repository;
@@ -28,6 +29,14 @@ public class AuthorService {
 
     public Author save(Author author) {
         return repository.save(author);
+    }
+
+    public Author update(Author author) {
+        return repository.save(author);
+    }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
 }

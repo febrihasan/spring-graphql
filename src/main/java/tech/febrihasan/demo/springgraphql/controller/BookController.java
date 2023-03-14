@@ -32,6 +32,29 @@ public class BookController {
     }
 
     /**
+     * Mutation update data book to repository
+     *
+     * @param book update data
+     * @return data of book
+     */
+    @MutationMapping
+    public Book updateBook(@Argument BookUpdate book) {
+        return bookService.update(new Book(book.id(), book.title(), book.publisher(),
+                authorService.getById(book.authorId())
+                        .orElseThrow(IllegalArgumentException::new)));
+    }
+
+    /**
+     * Mutation delete data book to repository
+     *
+     * @param id to delete data
+     */
+    @MutationMapping
+    public void deleteBook(Long id) {
+        bookService.delete(id);
+    }
+
+    /**
      * Constructor to bookInput
      *
      * @param title
@@ -39,5 +62,6 @@ public class BookController {
      * @param authorId
      */
     record BookInput(String title, String publisher, Long authorId) {}
+    record BookUpdate(Long id, String title, String publisher, Long authorId) {}
 
 }

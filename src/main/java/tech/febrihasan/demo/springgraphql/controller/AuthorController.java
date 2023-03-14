@@ -54,10 +54,32 @@ public class AuthorController {
     }
 
     /**
+     * Mutation update data author to repository
+     *
+     * @param author update data
+     * @return data of author
+     */
+    @MutationMapping
+    public Author updateAuthor(@Argument AuthorUpdate author) {
+        return service.update(new Author(author.id(), author.name(), new ArrayList<>()));
+    }
+
+    /**
+     * Mutation delete data author to repository
+     *
+     * @param id to delete data
+     */
+    @MutationMapping
+    public void deleteAuthor(Long id) {
+        service.delete(id);
+    }
+
+    /**
      * Constructor to authorInput
      *
      * @param name
      */
     record AuthorInput(String name) {}
+    record AuthorUpdate(Long id, String name) {}
 
 }

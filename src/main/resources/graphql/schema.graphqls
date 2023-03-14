@@ -28,6 +28,7 @@ input AuthorInput {
 
 input EmployeeInput {
     name: String!
+    address: String
     departmentId: ID!
 }
 
@@ -50,6 +51,7 @@ type Book {
 type Employee {
     id: ID!
     name: String
+    address: String
     departmentId : ID!
 }
 

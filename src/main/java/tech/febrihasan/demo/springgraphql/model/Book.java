@@ -1,5 +1,7 @@
 package tech.febrihasan.demo.springgraphql.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,7 @@ public class Book {
     private Long id;
     private String title;
     private String publisher;
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     private Author author;
 }

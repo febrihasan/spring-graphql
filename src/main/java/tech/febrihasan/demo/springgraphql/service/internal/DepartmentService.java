@@ -2,9 +2,8 @@ package tech.febrihasan.demo.springgraphql.service.internal;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import tech.febrihasan.demo.springgraphql.model.Author;
+import org.springframework.transaction.annotation.Transactional;
 import tech.febrihasan.demo.springgraphql.model.Department;
-import tech.febrihasan.demo.springgraphql.service.delegate.AuthorRepository;
 import tech.febrihasan.demo.springgraphql.service.delegate.DepartmentRepository;
 
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class DepartmentService {
 
     private final DepartmentRepository repository;
@@ -29,6 +29,14 @@ public class DepartmentService {
 
     public Department save(Department department) {
         return repository.save(department);
+    }
+
+    public Department update(Department department) {
+        return repository.save(department);
+    }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
 }

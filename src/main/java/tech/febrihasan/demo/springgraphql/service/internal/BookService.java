@@ -2,6 +2,7 @@ package tech.febrihasan.demo.springgraphql.service.internal;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tech.febrihasan.demo.springgraphql.model.Book;
 import tech.febrihasan.demo.springgraphql.service.delegate.BookRepository;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BookService {
 
     private final BookRepository repository;
@@ -27,6 +29,14 @@ public class BookService {
 
     public Book save(Book book) {
         return repository.save(book);
+    }
+
+    public Book update(Book book) {
+        return repository.save(book);
+    }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
 }
