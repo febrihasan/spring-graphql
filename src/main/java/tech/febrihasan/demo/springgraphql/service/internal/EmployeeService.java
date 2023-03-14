@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech.febrihasan.demo.springgraphql.model.Author;
+import tech.febrihasan.demo.springgraphql.model.Department;
 import tech.febrihasan.demo.springgraphql.model.Employee;
 import tech.febrihasan.demo.springgraphql.service.delegate.EmployeeRepository;
 
@@ -22,6 +23,10 @@ public class EmployeeService {
 
     public List<Employee> getAll() {
         return repository.findAll();
+    }
+
+    public Optional<Employee> getById(Long id) {
+        return repository.findById(id);
     }
 
     public Optional<Employee> getByName(String name) {

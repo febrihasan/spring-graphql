@@ -3,19 +3,33 @@ type Query {
     authorById(id: ID!): Author
     books: [Book]
     bookById(id: ID!): Book
-    employees: [Employee]
-    employeeByName(name: String!): Employee
     departments: [Department]
     departmentById(id: ID!): Department
+    employees: [Employee]
+    employeeByName(name: String!): Employee
 }
 
 type Mutation {
-    addBook(book: BookInput) : Book
+    ### -- Fun Add --
     addAuthor(author: AuthorInput) : Author
-    addEmployee(employee: EmployeeInput): Employee
+    addBook(book: BookInput) : Book
     addDepartment(department: DepartmentInput): Department
+    addEmployee(employee: EmployeeInput): Employee
+
+    ### -- Fun Update --
+    updateAuthor(author: AuthorUpdate): Author
+    updateBook(book: BookUpdate): Book
+    updateDepartment(department: DepartmentUpdate): Department
+    updateEmployee(employee: EmployeeUpdate): Employee
+
+    ### -- Fun Delete --
+    deleteAuthor(id: ID): Boolean
+    deleteBook(id: ID): Boolean
+    deleteDepartment(id: ID): Boolean
+    deleteEmployee(id: ID): Boolean
 }
 
+### -- Input --
 input BookInput {
     title: String!
     publisher: String
@@ -26,16 +40,42 @@ input AuthorInput {
     name: String!
 }
 
+input DepartmentInput {
+    name: String!
+}
+
 input EmployeeInput {
     name: String!
     address: String
     departmentId: ID!
 }
 
-input DepartmentInput {
+### -- Update --
+input BookUpdate {
+    id: ID!
+    title: String!
+    publisher: String
+    authorId: ID!
+}
+
+input AuthorUpdate {
+    id: ID!
     name: String!
 }
 
+input DepartmentUpdate {
+    id: ID!
+    name: String!
+}
+
+input EmployeeUpdate {
+    id: ID!
+    name: String!
+    address: String
+    departmentId: ID!
+}
+
+### -- Data --
 type Author {
     id: ID!
     name: String!
@@ -48,15 +88,15 @@ type Book {
     publisher: String
 }
 
+type Department {
+    id: ID!
+    name: String
+    employees: [Employee]
+}
+
 type Employee {
     id: ID!
     name: String
     address: String
     departmentId : ID!
-}
-
-type Department {
-    id: ID!
-    name: String
-    employees: [Employee]
 }

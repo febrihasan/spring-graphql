@@ -5,8 +5,11 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
 import tech.febrihasan.demo.springgraphql.model.Book;
+import tech.febrihasan.demo.springgraphql.model.Employee;
 import tech.febrihasan.demo.springgraphql.service.internal.AuthorService;
 import tech.febrihasan.demo.springgraphql.service.internal.BookService;
+
+import java.util.Optional;
 
 /**
  * @author febrihasan
@@ -50,8 +53,14 @@ public class BookController {
      * @param id to delete data
      */
     @MutationMapping
-    public void deleteBook(Long id) {
-        bookService.delete(id);
+    public Boolean deleteBook(@Argument Long id) {
+        Optional<Book> o = bookService.getById(id);
+        if (o.isPresent()) {
+            bookService.delete(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

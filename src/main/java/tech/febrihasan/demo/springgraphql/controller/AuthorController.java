@@ -70,8 +70,14 @@ public class AuthorController {
      * @param id to delete data
      */
     @MutationMapping
-    public void deleteAuthor(Long id) {
-        service.delete(id);
+    public Boolean deleteAuthor(@Argument Long id) {
+        Optional<Author> o = service.getById(id);
+        if (o.isPresent()) {
+            service.delete(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

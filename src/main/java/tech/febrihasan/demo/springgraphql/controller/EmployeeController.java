@@ -71,8 +71,14 @@ public class EmployeeController {
      * @param id to delete data
      */
     @MutationMapping
-    public void deleteEmployee(Long id) {
-        service.delete(id);
+    public Boolean deleteEmployee(@Argument Long id) {
+        Optional<Employee> o = service.getById(id);
+        if (o.isPresent()) {
+            service.delete(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

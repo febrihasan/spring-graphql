@@ -70,8 +70,14 @@ public class DepartmentController {
      * @param id to delete data
      */
     @MutationMapping
-    public void deleteDepartment(Long id) {
-        service.delete(id);
+    public Boolean deleteDepartment(@Argument Long id) {
+        Optional<Department> o = service.getById(id);
+        if (o.isPresent()) {
+            service.delete(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
