@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 import tech.febrihasan.demo.springgraphql.model.Author;
 import tech.febrihasan.demo.springgraphql.service.internal.AuthorService;
@@ -48,6 +49,8 @@ public class AuthorController {
      * @param author input data
      * @return data of author
      */
+
+//    @SchemaMapping(typeName = "Mutation", field = "addAuthor")
     @MutationMapping
     public Author addAuthor(@Argument AuthorInput author) {
         return service.save(new Author(null, author.name(), new ArrayList<>()));
@@ -59,6 +62,7 @@ public class AuthorController {
      * @param author update data
      * @return data of author
      */
+//    @SchemaMapping(typeName = "Mutation", field = "updateAuthor")
     @MutationMapping
     public Author updateAuthor(@Argument AuthorUpdate author) {
         return service.update(new Author(author.id(), author.name(), new ArrayList<>()));
@@ -69,6 +73,7 @@ public class AuthorController {
      *
      * @param id to delete data
      */
+//    @SchemaMapping(typeName = "Mutation", field = "deleteAuthor")
     @MutationMapping
     public Boolean deleteAuthor(@Argument Long id) {
         Optional<Author> o = service.getById(id);

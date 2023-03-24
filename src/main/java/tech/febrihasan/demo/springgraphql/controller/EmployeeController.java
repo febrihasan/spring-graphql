@@ -1,10 +1,13 @@
 package tech.febrihasan.demo.springgraphql.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
+import tech.febrihasan.demo.springgraphql.model.Department;
 import tech.febrihasan.demo.springgraphql.model.Employee;
 import tech.febrihasan.demo.springgraphql.service.internal.EmployeeService;
 
@@ -14,6 +17,7 @@ import java.util.Optional;
 /**
  * @author febrihasan
  */
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class EmployeeController {
@@ -28,6 +32,12 @@ public class EmployeeController {
     @QueryMapping
     public List<Employee> employees() {
         return service.getAll();
+    }
+
+    @SchemaMapping(typeName = "Department", field = "employees")
+    public List<Employee> allEmployees(Department department) {
+        log.info("department Id: " + department.getId());
+        return service.getAllEmployeeByDepartmentId(department.getId());
     }
 
     /**

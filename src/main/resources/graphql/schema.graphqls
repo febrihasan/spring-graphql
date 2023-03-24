@@ -5,6 +5,8 @@ type Query {
     bookById(id: ID!): Book
     departments: [Department]
     departmentById(id: ID!): Department
+
+    allEmployees: [Employee]
     employees: [Employee]
     employeeByName(name: String!): Employee
 }
@@ -27,6 +29,10 @@ type Mutation {
     deleteBook(id: ID): Boolean
     deleteDepartment(id: ID): Boolean
     deleteEmployee(id: ID): Boolean
+}
+
+type Subscription {
+    employees : Employee
 }
 
 ### -- Input --
